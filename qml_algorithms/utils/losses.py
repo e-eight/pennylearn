@@ -1,4 +1,4 @@
-# This code is part of PennyLane-Algorithms.
+# This code is part of qml_algorithms.
 #
 # (C) Copyright Soham Pal 2021.
 #
