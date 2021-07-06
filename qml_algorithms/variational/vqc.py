@@ -186,4 +186,4 @@ class VQC:
         """
         if self._fit_result is None:
             raise ValueError("Model needs to be fitted to some training data")
-        return [np.sign(self._forward(self._fit_result, sample) for sample in x)]
+        return [np.sign(self._forward(self._fit_result, sample)) for sample in x]
