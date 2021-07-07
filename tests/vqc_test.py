@@ -1,11 +1,16 @@
 #!/bin/bash/env python
 
+# PennyLane imports
 import pennylane as qml
 import pennylane.numpy as np
 from pennylane.optimize import AdamOptimizer
 from pennylane.templates.layers import StronglyEntanglingLayers
-from qml_algorithms.templates import Ansatz, Embedding
-from qml_algorithms.variational import VQC
+
+# PennyLearn imports
+from pennylearn.templates import Ansatz, Embedding
+from pennylearn.variational import VQC
+
+# scikit-learn imports
 from sklearn.metrics import accuracy_score
 
 # Parity
@@ -34,7 +39,6 @@ def square_loss(labels, predictions):
     loss = 0
     for l, p in zip(labels, predictions):
         loss = loss + (l - p) ** 2
-
     loss = loss / len(labels)
     return loss
 
@@ -44,7 +48,6 @@ device = "default.qubit"
 vqc = VQC(
     embedding,
     ansatz,
-    num_wires,
     square_loss,
     AdamOptimizer(stepsize=0.5),
     device,

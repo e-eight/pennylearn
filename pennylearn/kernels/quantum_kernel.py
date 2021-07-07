@@ -16,7 +16,7 @@ import numpy as np
 import pennylane as qml
 from numpy.typing import ArrayLike
 from pennylane.kernels import kernel_matrix
-from qml_algorithms.templates import Embedding
+from pennylearn.templates import Embedding
 
 
 class QuantumKernel:
@@ -76,12 +76,11 @@ class QuantumKernel:
         """
         projector = np.zeros((2 ** self._num_wires, 2 ** self._num_wires))
         projector[0, 0] = 1
-        embedding = self._embedding.circuit()
 
         @qml.qnode(self._device)
         def kernel_helper():
-            embedding(x, wires=range(self._num_wires))
-            qml.adjoint(embedding)(y, wires=range(self._num_wires))
+            self._embedding.circuit(x)
+            qml.adjoint(self._embedding.circuit)(y)
             return qml.expval(qml.Hermitian(projector, wires=range(self._num_wires)))
 
         return kernel_helper()

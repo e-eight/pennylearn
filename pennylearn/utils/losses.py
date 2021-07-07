@@ -15,9 +15,10 @@
 """ Loss functions """
 
 import numpy as np
+from numpy.typing import ArrayLike
 
 
-def _validate_shapes(predict: np.ndarray, target: np.ndarray):
+def _validate_shapes(predict: ArrayLike, target: ArrayLike):
     """
     Validates that shapes of both parameters are identical.
 
@@ -35,7 +36,7 @@ def _validate_shapes(predict: np.ndarray, target: np.ndarray):
         )
 
 
-def cross_entropy_loss(predict: np.ndarray, target: np.ndarray):
+def cross_entropy_loss(predict: ArrayLike, target: ArrayLike):
     r"""
     Calculates the cross entropy loss for each sample:
 
@@ -60,7 +61,7 @@ def cross_entropy_loss(predict: np.ndarray, target: np.ndarray):
     return loss
 
 
-def binary_cross_entropy_loss(predict: np.ndarray, target: np.ndarray):
+def binary_cross_entropy_loss(predict: ArrayLike, target: ArrayLike):
     r"""
     Calculates the cross entropy loss for each sample for binary classification.
 

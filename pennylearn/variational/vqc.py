@@ -17,7 +17,7 @@ from typing import Any, Callable, Tuple, Union
 import pennylane as qml
 import pennylane.numpy as np
 from numpy.typing import ArrayLike
-from qml_algorithms.templates import Ansatz, Embedding
+from pennylearn.templates import Ansatz, Embedding
 
 
 class VQC:

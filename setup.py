@@ -14,24 +14,24 @@
 
 from setuptools import find_packages, setup
 
-with open("qml_algorithms/_version.py") as f:
+with open("pennylearn/_version.py") as f:
     version = f.readlines()[-1].split()[-1].strip("\"'")
 
 requirements = ["pennylane", "scikit-learn"]
 
 info = {
-    "name": "qml_algorithms",
+    "name": "PennyLearn",
     "version": version,
     "maintainer": "Soham Pal",
     "maintainer_email": "dssohampal@gmail.com",
-    "url": "https://github.com/e-eight/qml-algorithms",
+    "url": "https://github.com/e-eight/pennylearn",
     "license": "Apache License 2.0",
     "packages": find_packages(where="."),
     "entry_points": {},
-    "description": "qml_algorithms is a Python quantum machine learning library built on PennyLane.",
+    "description": "PennyLearn is a Python quantum machine learning library built on PennyLane.",
     "long_description": open("README.md").read(),
     "long_description_content_type": "text/markdown",
-    "provides": ["qml_algorithms"],
+    "provides": ["pennylearn"],
     "install_requires": requirements,
     "extras_require": {"kernels": ["cvxpy", "cvxopt"]},
     "package_data": {},

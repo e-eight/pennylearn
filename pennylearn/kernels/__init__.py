@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from .base_kernel_method import BaseKernelMethod
 from .quantum_kernel import QuantumKernel
 
-__all__ = ["QuantumKernel"]
+__all__ = ["QuantumKernel", "BaseKernelMethod"]
