@@ -16,7 +16,7 @@ from typing import Any, Optional
 
 from numpy.typing import ArrayLike
 
-from .quantum_kernel import QuantumKernel
+from .kernels import QuantumKernel
 
 
 class BaseKernelMethod:

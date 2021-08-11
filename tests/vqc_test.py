@@ -1,4 +1,5 @@
 #!/bin/bash/env python
+import numpy as onp
 
 # PennyLane imports
 import pennylane as qml
@@ -8,10 +9,11 @@ from pennylane.templates.layers import StronglyEntanglingLayers
 
 # PennyLearn imports
 from pennylearn.templates import Ansatz, Embedding
+from pennylearn.utils.scores import accuracy
 from pennylearn.variational import VQC
 
 # scikit-learn imports
-from sklearn.metrics import accuracy_score
+# from sklearn.metrics import accuracy_score
 
 # Parity
 
@@ -27,6 +29,8 @@ print("Data:")
 print("-----")
 for i in range(5):
     print("X = {}, Y = {: d}".format(X[i], int(Y[i])))
+print(X.shape)
+print(Y.shape)
 
 print("...\n")
 
@@ -55,10 +59,11 @@ vqc = VQC(
 
 
 def callback(epoch, predictions, cost):
-    accuracy = accuracy_score(predictions, Y)
-    print(f"Iteration: {epoch + 1:5d} | Cost: {cost:0.7f} | Accuracy: {accuracy:0.7f}")
+    acc = accuracy(predictions, Y)
+    print(f"Iteration: {epoch + 1:5d} | Cost: {cost:0.7f} | Accuracy: {acc:0.7f}")
 
 
 print("Traning:")
 print("--------")
 vqc.fit(X, Y, seed=0, epochs=25, callback=callback)
+print(f"Final score: {vqc.score(X, Y)}")

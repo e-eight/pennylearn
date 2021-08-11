@@ -12,12 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Any, Callable, Tuple, Union
+from typing import Any, Callable, List, Tuple, Union
 
+import numpy as np
 import pennylane as qml
-import pennylane.numpy as np
+
+# import pennylane.numpy as pnp
 from numpy.typing import ArrayLike
 from pennylearn.templates import Ansatz, Embedding
+from pennylearn.utils.scores import accuracy
 
 
 class VQC:
@@ -177,15 +180,26 @@ class VQC:
 
         self._fit_result = var
 
-    def predict(self, x: ArrayLike):
+    def predict(self, x: ArrayLike) -> List:
         """Predict using the trained VQC model.
 
         Args:
-            x (ArrayLike): The input data.
+            x (ArrayLike): The input data, must have shape (n_samples, n_features).
 
         Returns:
             The predicted classes.
         """
         if self._fit_result is None:
             raise ValueError("Model needs to be fitted to some training data")
-        return [np.sign(self._forward(self._fit_result, sample)) for sample in x]
+        predictions = [np.sign(self._forward(self._fit_result, sample)) for sample in x]
+        return np.asarray(predictions)
+
+    def score(self, x: ArrayLike, y: ArrayLike) -> float:
+        """Returns the accuracy score of the trained model with respect to the input.
+
+        Args:
+            x (ArrayLike): The input data, must have shape (n_samples, n_features).
+            y (ArrayLike): The target classes, must have shape (n_samples,).
+        """
+        predictions = self.predict(x)
+        return accuracy(predictions, y)

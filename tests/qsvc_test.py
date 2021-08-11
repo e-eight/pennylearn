@@ -6,8 +6,8 @@ import numpy as np
 from pennylane.templates import AmplitudeEmbedding, AngleEmbedding
 
 # PennyLane imports
-from pennylearn.kernels import QuantumKernel
-from pennylearn.qsvm import QSVC
+from pennylearn.kernel_methods.kernels import QuantumKernel
+from pennylearn.kernel_methods.qsvm import QSVC
 from pennylearn.templates import Embedding
 
 # scikit-learn imports

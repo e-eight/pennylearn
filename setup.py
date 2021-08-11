@@ -20,7 +20,7 @@ with open("pennylearn/_version.py") as f:
 requirements = ["pennylane", "scikit-learn"]
 
 info = {
-    "name": "PennyLearn",
+    "name": "pennylearn",
     "version": version,
     "maintainer": "Soham Pal",
     "maintainer_email": "dssohampal@gmail.com",

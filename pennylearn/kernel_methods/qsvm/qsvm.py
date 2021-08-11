@@ -13,8 +13,10 @@
 # limitations under the License.
 
 
-from pennylearn.kernels import BaseKernelMethod, QuantumKernel
 from sklearn.svm import SVC, SVR
+
+from ..base import BaseKernelMethod
+from ..kernels import QuantumKernel
 
 
 class QSVC(BaseKernelMethod):

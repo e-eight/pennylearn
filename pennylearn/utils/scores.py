@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-""" Loss functions """
+""" Statistical scores """
 
 import numpy as np
 from numpy.typing import ArrayLike
@@ -36,47 +36,21 @@ def _validate_shapes(predict: ArrayLike, target: ArrayLike):
         )
 
 
-def cross_entropy_loss(predict: ArrayLike, target: ArrayLike):
-    r"""
-    Calculates the cross entropy loss for each sample:
-
-    .. math::
-
-        \text{cross_entropy_loss}(predict, target) =
-        -\sum_{i=0}^{N_{\text{classes}}} target_i * log(predict_i)
+def accuracy(
+    predict: ArrayLike, target: ArrayLike, rtol: float = 0.0, atol: float = 1e-5
+) -> float:
+    """
+    Calculates the accuracy score.
 
     Args:
         predict: an array of predicted values using the model
         target: an array of the true values
+        rtol: relative tolerance parameter for np.isclose
+        atol: absolute tolerance parameter for np.isclose
 
     Returns:
-        an array with the cross entropy loss for each sample
+        The accuracy score
     """
-    _validate_shapes(predict, target)
-    if len(predict.shape == 1):
-        predict = predict[:, None]
-        target = target[:, None]
-
-    loss = -np.einsum("ij,ij->i", target, np.log2(predict)).reshape(-1, 1)
-    return loss
-
-
-def binary_cross_entropy_loss(predict: ArrayLike, target: ArrayLike):
-    r"""
-    Calculates the cross entropy loss for each sample for binary classification.
-
-    Args:
-        predict: an array of predicted values using the model
-        target: an array of the true values
-
-    Returns:
-        an array with the binary cross entropy loss for each sample
-    """
-    _validate_shapes(predict, target)
-    if len(set(target) != 2):
-        raise ValueError(
-            "Binary cross entropy loss should only be used for \
-        binary classification"
-        )
-
-    return 1.0 / (1.0 + np.exp(-cross_entropy_loss(predict, target)))
+    predict_, target_ = np.asarray(predict), np.asarray(target)
+    _validate_shapes(predict_, target_)
+    return np.sum(np.isclose(predict_, target_, rtol=rtol, atol=atol)) / len(predict_)
